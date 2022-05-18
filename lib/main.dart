@@ -1,11 +1,7 @@
-import 'dart:html';
-
 import 'howtoplay.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'ges.dart';
 import 'score.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());

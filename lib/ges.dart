@@ -1,5 +1,3 @@
-import 'dart:developer';
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'dart:async';
@@ -14,8 +12,8 @@ String chokipath = 'images/janken_choki.png';
 String papath = 'images/janken_pa.png';
 List<String> recordlist = [];
 
-// TODO リトライで自分に遷移 (リトライ後戻るが消えるのが不満だが直せない5/16)
-// TODO UI改善　ボタン位置サイズ　appbar 文字色　背景 scoretable twitterbutton
+// TODO リトライで自分に遷移 (リトライ後homeに戻るが消えるのが不満だが直せない5/16)
+// TODO UI改善　ボタン位置サイズ　appbar 文字色　背景 scoretable twitterbutton gamepage遷移時にoverlayで321カウントダウン
 
 class GamePage extends StatefulWidget {
   const GamePage({Key? key, required this.title}) : super(key: key);
@@ -26,7 +24,8 @@ class GamePage extends StatefulWidget {
   State<GamePage> createState() => _GamePageState();
 }
 
-class _GamePageState extends State<GamePage> {
+class _GamePageState extends State<GamePage>
+    with SingleTickerProviderStateMixin {
   int counter = 1;
   int orderseed = Random().nextInt(100);
   int gesseed = Random().nextInt(100);
@@ -41,6 +40,7 @@ class _GamePageState extends State<GamePage> {
   bool startflag = false;
   String? scoretime;
   Stopwatch stopwatch = Stopwatch();
+  int _timecounter = 0;
 
   void _getStringList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -94,7 +94,6 @@ class _GamePageState extends State<GamePage> {
     if (stopwatch.isRunning == true && finishflag == true) {
       setState(() {
         stopwatch.stop();
-        //  TODO 記録を残す
         scoretime = "${stopwatch.elapsed}".substring(3);
         recordlist.add("$scoretime");
         stopwatch.reset();
@@ -104,8 +103,6 @@ class _GamePageState extends State<GamePage> {
   }
 
   void nextq(String ges) {
-    // handlestopwatch(startflag, counter == 10);
-
     if (judge(ges)) counter++;
     if (counter != 10) {
       if (judge(ges)) {
@@ -156,10 +153,25 @@ class _GamePageState extends State<GamePage> {
     }
   }
 
+  // AnimationController? controller;
+  // Animation<double>? opacityAnimation;
+  // Animation<double>? scaleAnimation;
+
   @override
   void initState() {
     super.initState();
     _getStringList();
+    Timer.periodic(
+      // 第一引数：繰り返す間隔の時間を設定
+      const Duration(seconds: 1),
+      // 第二引数：その間隔ごとに動作させたい処理を書く
+      (Timer timer) {
+        _timecounter++;
+        if (_timecounter < 4) {
+          setState(() {});
+        }
+      },
+    );
   }
 
   @override
@@ -229,9 +241,6 @@ class _GamePageState extends State<GamePage> {
                               child: Image.asset("images/janken_pa.png"))),
                     ],
                   ),
-                  // Text("$noworder"),
-                  // Text("$nowges"),
-                  // Text("$gesseed"),
                 ],
               ),
               Visibility(
@@ -267,7 +276,23 @@ class _GamePageState extends State<GamePage> {
                                     child: Text("レコード")),
                               ]),
                         ])),
-              )
+              ),
+              Visibility(
+                visible: !(_timecounter >= 3),
+                child: Container(
+                  constraints: BoxConstraints.expand(),
+                  color: Colors.grey.withOpacity(1),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "${3 - _timecounter}",
+                        style: TextStyle(fontSize: 32),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ));
