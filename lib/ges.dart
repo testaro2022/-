@@ -26,7 +26,7 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage>
     with SingleTickerProviderStateMixin {
-  int counter = 1;
+  int counter = 8;
   int orderseed = Random().nextInt(100);
   int gesseed = Random().nextInt(100);
   bool flag = false;

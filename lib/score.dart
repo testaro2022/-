@@ -62,8 +62,8 @@ class _ScorePageState extends State<ScorePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  width: 200,
-                  height: 200,
+                  width: 300,
+                  height: 100,
                   child: Table(
                     border: TableBorder.all(color: Colors.black),
                     columnWidths: const <int, TableColumnWidth>{
@@ -72,16 +72,38 @@ class _ScorePageState extends State<ScorePage> {
                     },
                     // defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                     children: [
+                      TableRow(
+                          decoration: const BoxDecoration(color: Colors.grey),
+                          children: [
+                            Text(
+                              "NO.",
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              "Score",
+                              textAlign: TextAlign.center,
+                            ),
+                          ]),
                       for (var i in recordlist..sort())
                         if (recordlist.indexOf(i) < 5)
                           TableRow(children: [
-                            Text(" no${recordlist.indexOf(i) + 1}:"),
-                            Text(" $i"),
+                            Text(
+                              "${recordlist.indexOf(i) + 1}",
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              "$i",
+                              textAlign: TextAlign.center,
+                            ),
                           ]),
                     ],
                   ),
                 ),
               ],
+            ),
+            SizedBox(
+              width: 0,
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
