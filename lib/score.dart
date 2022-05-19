@@ -19,6 +19,7 @@ class _ScorePageState extends State<ScorePage> {
   List<String> hashtags = [];
   String? via;
   String? related;
+  final int MAX_RECORD_NUM = 5;
 
   void _tweet() async {
     final Map<String, dynamic> tweetQuery = {
@@ -78,7 +79,8 @@ class _ScorePageState extends State<ScorePage> {
                             ),
                           ]),
                       for (var timescore in recordlist..sort())
-                        if (recordlist.indexOf(timescore) < 5) //上位5位まで表示
+                        if (recordlist.indexOf(timescore) <
+                            MAX_RECORD_NUM) //上位5位まで表示
                           TableRow(children: [
                             Text(
                               "${recordlist.indexOf(timescore) + 1}",

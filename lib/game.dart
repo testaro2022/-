@@ -21,7 +21,7 @@ class _GamePageState extends State<GamePage>
   String? nowJanken; //先に出されたじゃんけん
   bool? nowOrder; //勝つか負けるかの指示
   bool? jankenResult; //正解か不正解か
-
+  final int MAX_GAME_NUM = 10; //じゃんけんの回数
   String? scoretime; //タイム記録用
   Stopwatch stopwatch = Stopwatch();
   int _timecounter = 0; //カウントダウン用の変数
@@ -91,12 +91,12 @@ class _GamePageState extends State<GamePage>
 
   void janken(String ges) {
     if (judge(ges)) jankenCounter++;
-    if (jankenCounter != 10) {
+    if (jankenCounter != MAX_GAME_NUM) {
       setState(() {
         judge(ges) ? jankenResult = true : jankenResult = false;
       });
     }
-    HandleStopwatch(jankenCounter == 10);
+    HandleStopwatch(jankenCounter == MAX_GAME_NUM);
   }
 
   bool judge(String playerges) {
@@ -164,7 +164,7 @@ class _GamePageState extends State<GamePage>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    '$jankenCounter/10', //今何回目のじゃんけんか
+                    '$jankenCounter/$MAX_GAME_NUM', //今何回目のじゃんけんか
                   ),
                   SizedBox(
                       width: 100,
@@ -208,7 +208,7 @@ class _GamePageState extends State<GamePage>
               ),
               Visibility(
                 //ゲーム終了後の画面
-                visible: jankenCounter >= 10,
+                visible: jankenCounter >= MAX_GAME_NUM,
                 child: Container(
                     color: Colors.grey.withOpacity(0.5),
                     child: Column(
