@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:janken/ges.dart';
-
 class HowtoPage extends StatefulWidget {
   const HowtoPage({Key? key, required this.title}) : super(key: key);
   final String title;

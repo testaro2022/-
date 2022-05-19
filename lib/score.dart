@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:janken/ges.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:share_plus/share_plus.dart';
+// import 'package:share_plus/share_plus.dart';
+// import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+// 余裕があったらtweetボタンをもっとかっこよく
 
 class ScorePage extends StatefulWidget {
   const ScorePage({Key? key, required this.title}) : super(key: key);
@@ -12,19 +13,12 @@ class ScorePage extends StatefulWidget {
 }
 
 class _ScorePageState extends State<ScorePage> {
+  //tweet用の変数
   String? text;
   String? url;
   List<String> hashtags = [];
   String? via;
   String? related;
-
-  // _ScorePageState(
-  //     {Key? key,
-  //     @required this.text,
-  //     this.url = "",
-  //     this.hashtags = const [],
-  //     this.via = "",
-  //     this.related = ""});
 
   void _tweet() async {
     final Map<String, dynamic> tweetQuery = {
@@ -70,7 +64,6 @@ class _ScorePageState extends State<ScorePage> {
                       0: FlexColumnWidth(1),
                       1: FlexColumnWidth(4),
                     },
-                    // defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                     children: [
                       TableRow(
                           decoration: const BoxDecoration(color: Colors.grey),
@@ -84,15 +77,15 @@ class _ScorePageState extends State<ScorePage> {
                               textAlign: TextAlign.center,
                             ),
                           ]),
-                      for (var i in recordlist..sort())
-                        if (recordlist.indexOf(i) < 5)
+                      for (var timescore in recordlist..sort())
+                        if (recordlist.indexOf(timescore) < 5) //上位5位まで表示
                           TableRow(children: [
                             Text(
-                              "${recordlist.indexOf(i) + 1}",
+                              "${recordlist.indexOf(timescore) + 1}",
                               textAlign: TextAlign.center,
                             ),
                             Text(
-                              "$i",
+                              "$timescore", //記録
                               textAlign: TextAlign.center,
                             ),
                           ]),
@@ -132,22 +125,6 @@ class _ScorePageState extends State<ScorePage> {
               ],
             )
           ],
-        )
-
-            // child: Column(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: <Widget>[
-            //     for (var i in recordlist..sort())
-            //       if (recordlist.indexOf(i) < 5)
-            //         Text("第${recordlist.indexOf(i) + 1}位:$i"),
-            //     ElevatedButton(
-            //         onPressed: () {
-            //           Navigator.pushNamedAndRemoveUntil(
-            //               context, "/home", (_) => false);
-            //         },
-            //         child: Text("最初に戻る")),
-            //   ],
-            // ),
-            ));
+        )));
   }
 }

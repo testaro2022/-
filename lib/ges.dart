@@ -12,9 +12,6 @@ String chokipath = 'images/janken_choki.png';
 String papath = 'images/janken_pa.png';
 List<String> recordlist = [];
 
-// TODO リトライで自分に遷移 (リトライ後homeに戻るが消えるのが不満だが直せない5/16)
-// TODO UI改善　ボタン位置サイズ　appbar 文字色　背景 scoretable twitterbutton gamepage遷移時にoverlayで321カウントダウン
-
 class GamePage extends StatefulWidget {
   const GamePage({Key? key, required this.title}) : super(key: key);
 
@@ -26,7 +23,7 @@ class GamePage extends StatefulWidget {
 
 class _GamePageState extends State<GamePage>
     with SingleTickerProviderStateMixin {
-  int counter = 8;
+  int counter = 1;
   int orderseed = Random().nextInt(100);
   int gesseed = Random().nextInt(100);
   bool flag = false;
@@ -153,14 +150,11 @@ class _GamePageState extends State<GamePage>
     }
   }
 
-  // AnimationController? controller;
-  // Animation<double>? opacityAnimation;
-  // Animation<double>? scaleAnimation;
-
   @override
   void initState() {
     super.initState();
     _getStringList();
+
     Timer.periodic(
       // 第一引数：繰り返す間隔の時間を設定
       const Duration(seconds: 1),
