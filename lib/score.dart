@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:janken/ges.dart';
+import 'package:janken/game.dart';
 import 'package:url_launcher/url_launcher.dart';
 // import 'package:share_plus/share_plus.dart';
 // import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
