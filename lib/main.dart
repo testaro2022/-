@@ -1,6 +1,6 @@
 import 'howtoplay.dart';
 import 'package:flutter/material.dart';
-import 'ges.dart';
+import 'game.dart';
 import 'score.dart';
 
 void main() {
