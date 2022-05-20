@@ -25,6 +25,7 @@ class _GamePageState extends State<GamePage>
   String? scoretime; //タイム記録用
   Stopwatch stopwatch = Stopwatch();
   int _timecounter = 0; //カウントダウン用の変数
+  final int MAX_COUNTDOWN_NUM = 3; //カウントダウンのスタートの数字(場合3,2,1になる)
 
   void GenOrder() {
     int? orderseed;
@@ -243,7 +244,7 @@ class _GamePageState extends State<GamePage>
               ),
               Visibility(
                 //最初のカウントダウン
-                visible: !(_timecounter >= 3),
+                visible: !(_timecounter >= MAX_COUNTDOWN_NUM),
                 child: Container(
                   constraints: BoxConstraints.expand(),
                   color: Colors.grey.withOpacity(1),
@@ -251,7 +252,7 @@ class _GamePageState extends State<GamePage>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        "${3 - _timecounter}",
+                        "${MAX_COUNTDOWN_NUM - _timecounter}",
                         style: TextStyle(fontSize: 32),
                       ),
                     ],
